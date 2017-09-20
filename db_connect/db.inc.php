@@ -6,7 +6,7 @@
 			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$pdo->exec('SET NAMES "utf8"') ;
 		}
-		catch (PDOEXxception $e) {
+		catch (PDOException $e) {
 			$output = "Couldn't make connection to database: " . $e->getMessage();
 			include 'output.html.php';
 			exit();
@@ -25,10 +25,37 @@
 			$s->bindValue(':lastname', $surname);
 			$s->execute();
 		}
-		catch (PDOEXxception $e) {
+		catch (PDOException $e) {
 			$output = 'Error of creating new user: ' . $e->getMessage();
 			include 'output.html.php';
 			exit();	
+		}
+	}
+
+	function show_all($pdo){
+		try {
+			$sql = 'SELECT firstname,lastname FROM users';
+			$result = $pdo->query($sql);
+		}
+		catch (PDOException $e) {
+			$output = 'Error of showing users: ' . $e->getMessage();
+			include 'output.html.php';
+			exit();	
+		}
+		return $result;
+	}
+
+	function delete_user($pdo, $surname){
+		try {
+			$sql = 'DELETE FROM users WHERE lastname = :lastname';
+			$s = $pdo->prepare($sql);
+			$s->bindValue(':lastname', $surname);
+			$s->execute();
+		}
+		catch (PDOException $e) {
+			$output = 'Error of deleting user: ' . $e->getMessage();
+			include 'output.html.php';
+			exit();
 		}
 	}
 
