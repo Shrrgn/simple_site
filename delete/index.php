@@ -4,10 +4,9 @@
 	}
 	else {
 		require_once '../db_connect/db.inc.php';
-		$pdo = db_connect();
-		delete_user($pdo, $_POST['lastname']);
+		delete_user($_POST['lastname']);
 		$output = 'User was deleted';
-
+		$title = 'Deleting';
 		include 'output.html.php';
 	}
 

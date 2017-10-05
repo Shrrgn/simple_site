@@ -1,9 +1,9 @@
 <?php
-	require_once '../db_connect/db.inc.php';
+	require_once $_SERVER['DOCUMENT_ROOT'] . '/db_connect/db.inc.php';
 	include '../stuff/stuff.php';
 
-	$pdo = db_connect();
-	$data = show_all($pdo);
+	///$pdo = ;
+	$data = show_all();
 
 	while ($row = $data->fetch()){
 		$users[] = array($row['firstname'], $row['lastname']);
